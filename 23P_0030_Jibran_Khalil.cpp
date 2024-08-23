@@ -9,11 +9,12 @@ void reverse_array(int *array, int size)
 
   for (; first < last; first++, last--)
   {
-    *first ^= *last;
-    *last ^= *first;
-    *first ^= *last;
+    int temp = *first;
+    *first = *last;
+    *last = temp;
   }
 }
+
 int find_min(int *array, int size)
 {
   int min = *array;
@@ -38,29 +39,34 @@ int find_max(int *array, int size)
   }
   return max;
 }
-
 void shift(int *array, int size)
 {
-  int first = *array;
-  for (int i = 1; i < size - 1; i++)
+  int *start = array;
+  int temp = *(array + size - 1);
+
+  for (int *end = array + size - 1; end > start; end--)
   {
-    
+    *end = *(end - 1);
   }
+  *start = temp;
 }
 
 void print(int *array, int length)
 {
+  cout << "{ ";
   for (int i = 0; i < length; i++)
   {
-    cout << *(array + i) << endl;
+    cout << *(array + i) << ", ";
   }
+
+  cout << "}" << endl;
 }
 
 int main()
 {
 
   const int array_length = 5;
-  int myArra[array_length] = {1, 2, 3, 4, 5};
+  int myArra[array_length] = {4, 1, 6, 3, 8};
 
   // pointer of functions
   void (*reverseArrayptr)(int *, int) = reverse_array;
@@ -69,6 +75,8 @@ int main()
   void (*shiftArrayptr)(int *, int) = shift;
   void (*printArrayptr)(int *, int) = print;
 
+  // printing array
+  printArrayptr(myArra, array_length);
   // find min and max
   cout << "min : " << findMinptr(myArra, array_length) << endl;
   cout << "max : " << findMaxptr(myArra, array_length) << endl;
