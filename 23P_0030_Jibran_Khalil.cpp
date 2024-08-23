@@ -11,6 +11,8 @@ int main()
 {
  
  int *myArray = new int[10];
+ int *myArray = new int[10];
+ int *myArray = new int[10];
 
 
  
